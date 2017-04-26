@@ -70,11 +70,14 @@ public final class QuoteSyncJob {
 
             while (iterator.hasNext()) {
                 String symbol = iterator.next();
-
-
                 Stock stock = quotes.get(symbol);
-                StockQuote quote = stock.getQuote();
 
+                // If the stock name is invalid, ignore and skip item processing
+                if(stock.getName() == null) {
+                    continue;
+                }
+
+                StockQuote quote = stock.getQuote();
                 float price = quote.getPrice().floatValue();
                 float change = quote.getChange().floatValue();
                 float percentChange = quote.getChangeInPercent().floatValue();
